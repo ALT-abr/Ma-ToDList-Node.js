@@ -32,17 +32,46 @@ function render() {
   taskList.replaceChildren();
   const shown = tasks.filter(t => filter.value === 'all' || (filter.value === 'done' ? t.done : !t.done));
   document.getElementById('empty').hidden = shown.length !== 0;
-  for (const task of shown) {
-    const li = document.createElement('li');
-    if (task.done) li.classList.add('done');
-    const check = document.createElement('input'); check.type = 'checkbox'; check.checked = task.done;
-    check.setAttribute('aria-label', `Terminer ${task.title}`);
-    check.addEventListener('change', () => updateTask(task, check.checked));
-    const text = document.createElement('span'); text.textContent = task.title; // pas de innerHTML
-    const del = document.createElement('button'); del.textContent = 'Supprimer'; del.className = 'delete';
-    del.addEventListener('click', () => deleteTask(task.id));
-    li.append(check, text, del); taskList.append(li);
-  }
+for (const task of shown) {
+  const li = document.createElement('li');
+  li.className = 'card';
+  if (task.done) li.classList.add('done');
+
+  const inner = document.createElement('div');
+  inner.className = 'card-inner';
+
+  // RECTO : titre + statut
+  const front = document.createElement('div');
+  front.className = 'face front';
+  const title = document.createElement('span');
+  title.className = 'title';
+  title.textContent = task.title;          // toujours textContent, jamais innerHTML
+  const badge = document.createElement('span');
+  badge.className = 'badge';
+  badge.textContent = task.done ? 'Terminée' : 'À faire';
+  front.append(title, badge);
+
+  // VERSO : actions
+  const back = document.createElement('div');
+  back.className = 'face back';
+  const label = document.createElement('label');
+  const check = document.createElement('input');
+  check.type = 'checkbox';
+  check.checked = task.done;
+  check.setAttribute('aria-label', `Terminer ${task.title}`);
+  check.addEventListener('change', () => updateTask(task, check.checked));
+  label.append(check, ' Terminée');
+  const del = document.createElement('button');
+  del.textContent = 'Supprimer';
+  del.className = 'delete';
+  del.addEventListener('click', () => deleteTask(task.id));
+  back.append(label, del);
+
+  inner.append(front, back);
+  li.append(inner);
+  taskList.append(li);
+}
+
 }
 form.addEventListener('submit', async (event) => {
   event.preventDefault(); const title = titleInput.value.trim(); if (title.length < 2) return;
@@ -71,3 +100,5 @@ function connectWebSocket() {
   socket.addEventListener('error', () => {connection.textContent='● Erreur WebSocket';});
 }
 loadTasks(); connectWebSocket();
+
+
