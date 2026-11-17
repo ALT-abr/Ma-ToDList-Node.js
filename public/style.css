@@ -10,7 +10,57 @@
 
 body {
     margin: 0;
-    padding: 32px 12px
+    padding: 32px 12px;
+}
+
+header{
+    max-width: 760px;
+    margin: auto;
+    margin-bottom: 20px;
+    background: #0f294a;
+    border-radius: 14px;
+    padding: 0 28px;
+    box-shadow: 0 8px 32px #17325317;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+
+    height: 80px;
+}
+
+h1 {
+    color: #e8edf4;
+    margin: 0 0 6px;
+    font-weight: 600;
+    font-size: 30px;
+    align-content: center;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+}
+
+nav a{
+    text-decoration: none;
+    color: #e8edf4;
+    font-size: 20px;
+    font-weight: 400;
+    align-items: center;
+}
+
+#tache-linge{
+    border-bottom: solid #3b6fb4;
 }
 
 main {
@@ -22,12 +72,13 @@ main {
     box-shadow: 0 8px 32px #17325317
 }
 
-h1 {
-    margin: 0 0 6px
+h2 {
+    margin: 0 0 6px;
+    font-size: 30px;
 }
 
-header p {
-    color: #52647b
+.fa-circle {
+    font-size: 12px;
 }
 
 #connection {
@@ -36,7 +87,8 @@ header p {
     padding: 6px 10px;
     border-radius: 20px;
     background: #fff3d9;
-    font-size: .9rem
+    font-size: .9rem;
+    align-items: center;
 }
 
 .form-row,

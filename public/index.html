@@ -5,30 +5,55 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Mes tâches - TP API temps réel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <header>
+        <h1>ToDo CESI</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li id="tache-linge"><a href="#">Mes taches</a></li>
+                <li><a href="#">A propos</a></li>
+            </ul>
+        </nav>
+    </header>
     <main>
-        <header>
-            <h1>Ma liste de tâches</h1>
-            <p>Interface cliente d'une API Node.js / MySQL</p><span id="connection" role="status">Connexion temps
-                réel…</span>
-        </header>
-        <form id="task-form"><label for="title">Nouvelle tâche</label>
-            <div class="form-row"><input id="title" name="title" required minlength="2" maxlength="120"
-                    placeholder="Ex. Terminer le TP"><button type="submit">Ajouter</button></div>
+        <h2>Ma liste de tâches</h2>
+        <p>Interface cliente d'une API Node.js / MySQL</p>
+
+        <span id="connection" role="status"> <i class="fa-solid fa-circle"></i> Connexion temps réel…</span>
+
+        <form id="task-form">
+            <lable for="title">Nouvelle tâche</label>
+            <div class="form-row">
+                <input id="title" name="title" required minlength="2" maxlength="120" placeholder="Ex. Terminer le TP">
+                <button type="submit">Ajouter</button>
+            </div>
         </form>
-        <div class="toolbar"><label for="filter">Afficher</label><select id="filter">
+
+        <div class="toolbar">
+            <label for="filter">Afficher</label>
+            <select class="filter">
                 <option value="all">Toutes</option>
-                <option value="todo">À faire</option>
-                <option value="done">Terminées</option>
-            </select><button id="refresh" type="button" class="secondary">Actualiser</button></div>
+                <option value="todo">A faire</option>
+                <option value="done">Terminees</option>
+            </select>
+
+            <button class="secondary" id="refresh" type="button">Actualiser</button>
+        </div>
+
         <p id="message" role="alert"></p>
+
         <ul id="tasks" aria-live="polite"></ul>
+
         <p id="empty" hidden>Aucune tâche à afficher.</p>
     </main>
-    <script src="app.js" defer></script>
-</body>
 
+    <footr></footr>
+
+    <script src="app.js" defer></script> 
+</body>
 </html>
