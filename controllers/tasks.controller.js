@@ -90,7 +90,7 @@ async function updateTask(req, res) {
             });
         }
 
-        singlerChangementTaches();
+        signalerChangementTaches();
         res.json(task);
 
     } catch (error) {
@@ -152,7 +152,7 @@ async function deleteTask(req, res) {
             });
         }
 
-        singlalerChangementTaches();
+        signalerChangementTaches();
         res.status(204).send();
 
     } catch (error) {

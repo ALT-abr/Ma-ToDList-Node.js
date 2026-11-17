@@ -146,6 +146,13 @@ select {
 .secondary:hover, select:hover { background: #97e5e4; }
 #tasks button.delete:hover { background: #962634; box-shadow: 0 6px 14px #b5324240; }
 
+input { transition: border-color .2s ease, box-shadow .2s ease; }
+input:focus {
+  outline: none;
+  border-color: #2159a4;
+  box-shadow: 0 0 0 4px #2159a433;
+}
+
 
 #tasks {
   padding: 0;
