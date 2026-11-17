@@ -11,13 +11,15 @@
 
 <body>
     <header>
-        <h1>ToDo CESI</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Accueil</a></li>
-                <li id="tache-linge"><a href="#">Mes taches</a></li>
-                <li><a href="#">A propos</a></li>
-            </ul>
+        <h1><a class="brand" href="#">ToDo CESI</a></h1>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="burger" aria-label="Ouvrir le menu">☰</label>
+
+        <nav class="menu" aria-label="Navigation principale">
+            <a href="#">Accueil</a>
+            <a href="#" class="active">Mes taches</a>
+            <a href="#">A propos</a>
         </nav>
     </header>
     <main>
@@ -27,11 +29,9 @@
         <span id="connection" role="status"> <i class="fa-solid fa-circle"></i> Connexion temps réel…</span>
 
         <form id="task-form">
-            <lable for="title">Nouvelle tâche</label>
-            <div class="form-row">
-                <input id="title" name="title" required minlength="2" maxlength="120" placeholder="Ex. Terminer le TP">
-                <button type="submit">Ajouter</button>
-            </div>
+            <label for="title">Nouvelle tâche</label>
+            <input id="title" name="title" required minlength="2" maxlength="120" placeholder="Ex. Terminer le TP">
+            <button type="submit">Ajouter</button>
         </form>
 
         <div class="toolbar">
@@ -51,7 +51,7 @@
 
         <p id="empty" hidden>Aucune tâche à afficher.</p>
     </main>
-
+    
     <footr></footr>
 
     <script src="app.js" defer></script> 
