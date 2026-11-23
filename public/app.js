@@ -11,6 +11,7 @@ const connection = document.getElementById('connection');
 
 const idsAffiches = new Set();
 let premierAffichage = true;
+let dernierRendu = '';
 
 let tasks = [];
 
@@ -33,7 +34,13 @@ async function loadTasks() {
     render(); message.textContent = '';
   } catch (err) { message.textContent = `Impossible de charger les tâches : ${err.message}`; }
 }
+
 function render() {
+  const signature = JSON.stringify([filter.value, tasks]);
+  if (signature === dernierRendu) return;
+  dernierRendu = signature;
+
+
   taskList.replaceChildren();
   const shown = tasks.filter(t => filter.value === 'all' || (filter.value === 'done' ? t.done : !t.done));
   document.getElementById('empty').hidden = shown.length !== 0;
@@ -87,6 +94,7 @@ idsAffiches.clear();
 tasks.forEach(task => idsAffiches.add(task.id));
 premierAffichage = false;
 }
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault(); const title = titleInput.value.trim(); if (title.length < 2) return;
   try { await request('', {method:'POST', body:JSON.stringify({title})}); titleInput.value=''; await loadTasks(); }
