@@ -110,7 +110,7 @@ premierAffichage = false;
 }
 
 form.addEventListener('submit', async (event) => {
-  event.preventDefault(); const title = titleInput.value.trim(); if (title.length < 2) return;
+  event.preventDefault(); const title = titleInput.value.trim(); if (title.length < 2);
   if (titleInput.value.trim() === "") {
     jouerAnimation(titleInput, "shake");
     titleInput.focus();
@@ -131,6 +131,7 @@ async function deleteTask(id) {
 }
 filter.addEventListener('change', render);
 document.getElementById('refresh').addEventListener('click', loadTasks);
+
 function connectWebSocket() {
   const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
   const socket = new WebSocket(`${protocol}//${location.host}${SOCKET_PATH}`);
