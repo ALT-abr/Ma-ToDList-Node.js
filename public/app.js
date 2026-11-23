@@ -107,6 +107,14 @@ tasks.forEach((task, index) => {
 idsAffiches.clear();
 tasks.forEach(task => idsAffiches.add(task.id));
 premierAffichage = false;
+
+  const compteur = document.querySelector("#compteur");
+  if (compteur.textContent !== String(tasks.length)) {
+    compteur.textContent = tasks.length;
+    jouerAnimation(compteur,
+      "animate__animated", "animate__heartBeat");
+  }
+
 }
 
 form.addEventListener('submit', async (event) => {
