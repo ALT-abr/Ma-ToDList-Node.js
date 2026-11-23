@@ -347,5 +347,36 @@ input:focus {
   .menu-toggle:checked + .burger { transform: rotate(90deg); color: #16243a;}
 }
 
+@media (max-width: 600px) {
+  .card.is-new {
+    animation-duration: 0.25s;
+    animation-delay: 0s;
+  }
+}
+
+@media (hover: none) {
+  .card .card-inner,
+  .card:hover .card-inner,
+  .card:focus-within .card-inner {
+    transform: none;
+    height: auto;
+  }
+  .face {
+    position: static;
+    backface-visibility: visible;
+  }
+  .back {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 
