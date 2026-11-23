@@ -258,6 +258,16 @@ input:focus {
   animation-play-state: paused;
 } */
 
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+.card.is-new {
+  animation: card-in 0.35s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
 @media(max-width:500px) {
     main {
         padding: 16px

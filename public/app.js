@@ -8,7 +8,12 @@ const form = document.getElementById('task-form');
 const titleInput = document.getElementById('title');
 const filter = document.getElementById('filter');
 const connection = document.getElementById('connection');
+
+const idsAffiches = new Set();
+let premierAffichage = true;
+
 let tasks = [];
+
 function normalizeTask(t) {
   return { id: t.id, title: t.title ?? t.titre ?? '', done: Boolean(t.done ?? t.completed ?? (t.status === 'done') ?? (t.etat === 'fini')) };
 }
@@ -32,10 +37,16 @@ function render() {
   taskList.replaceChildren();
   const shown = tasks.filter(t => filter.value === 'all' || (filter.value === 'done' ? t.done : !t.done));
   document.getElementById('empty').hidden = shown.length !== 0;
-for (const task of shown) {
+tasks.forEach((task, index) => {
   const li = document.createElement('li');
   li.className = 'card';
+  
   if (task.done) li.classList.add('done');
+
+  if (!idsAffiches.has(task.id)) {
+    li.classList.add("is-new");
+    li.style.setProperty("--i", premierAffichage ? index : 0);
+  }
 
   const inner = document.createElement('div');
   inner.className = 'card-inner';
@@ -70,8 +81,11 @@ for (const task of shown) {
   inner.append(front, back);
   li.append(inner);
   taskList.append(li);
-}
+});
 
+idsAffiches.clear();
+tasks.forEach(task => idsAffiches.add(task.id));
+premierAffichage = false;
 }
 form.addEventListener('submit', async (event) => {
   event.preventDefault(); const title = titleInput.value.trim(); if (title.length < 2) return;
