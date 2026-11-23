@@ -15,6 +15,13 @@ let dernierRendu = '';
 
 let tasks = [];
 
+function jouerAnimation(element, ...classes) {
+  element.classList.add(...classes);
+  element.addEventListener("animationend", () => {
+    element.classList.remove(...classes);
+  }, { once: true });
+}
+
 function normalizeTask(t) {
   return { id: t.id, title: t.title ?? t.titre ?? '', done: Boolean(t.done ?? t.completed ?? (t.status === 'done') ?? (t.etat === 'fini')) };
 }
@@ -82,7 +89,14 @@ tasks.forEach((task, index) => {
   const del = document.createElement('button');
   del.textContent = 'Supprimer';
   del.className = 'delete';
-  del.addEventListener('click', () => deleteTask(task.id));
+  del.addEventListener("click", () => {
+  li.classList.add("is-leaving");
+  li.addEventListener("animationend", (event) => {
+    if (event.animationName !== "card-out") return;
+    deleteTask(task.id);
+  });
+});
+
   back.append(label, del);
 
   inner.append(front, back);
@@ -97,13 +111,20 @@ premierAffichage = false;
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault(); const title = titleInput.value.trim(); if (title.length < 2) return;
+  if (titleInput.value.trim() === "") {
+    jouerAnimation(titleInput, "shake");
+    titleInput.focus();
+    return;
+  }
   try { await request('', {method:'POST', body:JSON.stringify({title})}); titleInput.value=''; await loadTasks(); }
   catch(err){message.textContent=`Ajout impossible : ${err.message}`;}
 });
+
 async function updateTask(task, done) {
   try { await request('/' + encodeURIComponent(task.id), {method:'PUT', body:JSON.stringify({title:task.title, done})}); await loadTasks(); }
   catch(err){message.textContent=`Modification impossible : ${err.message}`; await loadTasks();}
 }
+
 async function deleteTask(id) {
   try { await request('/' + encodeURIComponent(id), {method:'DELETE'}); await loadTasks(); }
   catch(err){message.textContent=`Suppression impossible : ${err.message}`;}
